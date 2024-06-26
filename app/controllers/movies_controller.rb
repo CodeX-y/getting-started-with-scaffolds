@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
       the_movie.save
       redirect_to("/movies", { :notice => "Movie created successfully." })
     else
-      redirect_to("/movies/new", { :alert => the_movie.errors.full_messages.to_sentence })
+      render template: "movies/new"
     end
   end
 
@@ -43,7 +43,7 @@ class MoviesController < ApplicationController
 
   def update
     the_id = params.fetch("id")
-    the_movie = Movie.where({ :id => the_id }).at(0)
+    the_movie = Movie.where({ :id => the_id })[0]
 
     the_movie.title = params.fetch("query_title")
     the_movie.description = params.fetch("query_description")
